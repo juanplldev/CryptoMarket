@@ -1,0 +1,34 @@
+.Container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 30px;
+    background: #141414;
+}
+
+.Header
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40;
+}
+
+.Name
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Price
+{
+    display: flex;
+    width: 90%;
+    height: 400;
+    background: gray;
+}

@@ -9,10 +9,19 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "babel-plugin-react-native-classname-to-style": "^1.2.2",
+    "babel-plugin-react-native-platform-specific-extensions": "^1.1.1",
     "expo": "~46.0.9",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
-    "react-native": "0.69.5"
+    "react-native": "0.69.5",
+    "react-native-css-transformer": "^1.2.4",
+    "react-native-dotenv": "^3.3.1",
+    "react-redux": "^8.0.2",
+    "react-router-native": "^6.3.0",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
