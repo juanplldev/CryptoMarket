@@ -1,70 +1,80 @@
 // Dependencies
 import React, {useEffect, useState} from "react";
-import {View, Text, FlatList, ScrollView} from "react-native";
-import {Link} from "react-router-native";
+import {View, Text, FlatList, StatusBar, TouchableOpacity} from "react-native";
+import {useNavigate} from "react-router-native";
 import {useDispatch, useSelector} from "react-redux";
 // Files
-import {getCryptos} from "../../redux/actions/actions";
+import {getCryptos, getCryptoByName} from "../../redux/actions/actions";
 import Cryptos from "../Cryptos/Cryptos";
+import SearchBar from "../SearchBar/SearchBar";
+import Filters from "../Filters/Filters";
 import styles from "./HomeStyles";
 
 
 function Home()
 {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const allCryptos = useSelector(state => state.allCryptos);
+    const cryptos = useSelector(state => state.cryptos);
     const [refresh, setRefresh] = useState(false);
     
     useEffect(() => {
         dispatch(getCryptos());
     }, [dispatch, refresh]);
     
+    async function handleRefresh()
+    {
+        await setRefresh(true);
+        await dispatch(getCryptos());
+        await setRefresh(false);
+    };
+    
+    function handleInputChange(text)
+    {
+        const searchedCrypto = allCryptos.filter(e => {
+            return e.id.includes(text.toLowerCase()) || e.symbol.includes(text.toLowerCase());
+        });
+        dispatch(getCryptoByName(searchedCrypto));
+    };
+    
+    function handleNavigate(id)
+    {
+        navigate(`/crypto/${id}`);
+    };
+    
     return (
         <View style={styles.Container}>
-            <Text style={styles.Title}>Crypto Prices</Text>
-            {/* <ScrollView showsVerticalScrollIndicator={false}>
-                {
-                    allCryptos.map(coin => {
-                        return (
-                            <Link to={`/crypto/${coin.id}`}>
-                                <CryptoCard
-                                    id={coin.id}
-                                    name={coin.name}
-                                    symbol={coin.symbol}
-                                    image={coin.image}
-                                    current_price={coin.current_price}
-                                    key={coin.id}
-                                />
-                            </Link>
-                        );
-                    })
-                }
-            </ScrollView> */}
+            <StatusBar backgroundColor="#171b26"/>
+            
+            <View style={styles.Header}>
+                <Text style={styles.Title}>Crypto Market</Text>
+                <SearchBar
+                    searchFunction={handleInputChange}
+                />
+            </View>
+            
+            <Filters/>
             
             <FlatList style={styles.List}
-                data={allCryptos}
+                data={cryptos}
                 renderItem={({item}) => {
                     return (
-                        <Link to={`/crypto/${item.id}`}>
+                        <TouchableOpacity onPress={() => handleNavigate(item.id)} style={styles.Link}>
                             <Cryptos
                                 id={item.id}
                                 name={item.name}
                                 symbol={item.symbol}
                                 image={item.image}
                                 price_usd={item.price_usd}
-                                price_ars={item.price_ars}
                                 price_percentage_24h={item.price_percentage_24h}
                                 key={item.id}
                             />
-                        </Link>
+                        </TouchableOpacity>
                     );
                 }}
                 refreshing={refresh}
-                onRefresh={async () => {
-                    setRefresh(true);
-                    dispatch(getCryptos());
-                    setRefresh(false);
-                }}
+                onRefresh={handleRefresh}
                 showsVerticalScrollIndicator={false}
             />
         </View>

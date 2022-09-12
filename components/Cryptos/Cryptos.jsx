@@ -5,7 +5,7 @@ import {View, Text, Image} from "react-native";
 import styles from "./CryptosStyles";
 
 
-function Cryptos({id, name, symbol, image, price_usd, price_ars, price_percentage_24h})
+function Cryptos({id, name, symbol, image, price_usd, price_percentage_24h})
 {
     function handlePercentage(percentage)
     {
@@ -18,7 +18,7 @@ function Cryptos({id, name, symbol, image, price_usd, price_ars, price_percentag
         }
         else
         {
-            return <Text style={styles.NegativePercentage}>-{slicedNegativePercentage}%</Text>;
+            return <Text style={styles.NegativePercentage}>{slicedNegativePercentage}%</Text>;
         };
     };
     
@@ -27,15 +27,13 @@ function Cryptos({id, name, symbol, image, price_usd, price_ars, price_percentag
             <Image style={styles.Icons} source={{uri: image}}/>
             
             <View style={styles.NamesContainer}>
-                <Text style={styles.Symbol}>{symbol.toUpperCase()}</Text>
+                <Text style={styles.Symbol}>{symbol}</Text>
                 <Text style={styles.Name}>{name}</Text>
             </View>
             
-            {handlePercentage(price_percentage_24h)}
-            
             <View style={styles.PricesContainer}>
                 <Text style={styles.PriceUSD}>{price_usd} USD</Text>
-                <Text style={styles.PriceARS}>{price_ars} ARS</Text>
+                {handlePercentage(price_percentage_24h)}
             </View>
         </View>
     );

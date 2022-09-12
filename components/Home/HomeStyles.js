@@ -13,10 +13,18 @@ const styles = StyleSheet.create({
         // margin: 30,
         // backgroundColor: "#141414",
     },
+    Header:
+    {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
     Title:
     {
-        fontSize: 28,
         marginBottom: 10,
+        fontSize: 28,
+        color: "#fff",
     },
     Text:
     {
@@ -27,6 +35,11 @@ const styles = StyleSheet.create({
         display: "flex",
         // justifyContent: "flex-start",
         // alignItems: "center",
+    },
+    Link:
+    {
+        marginBottom: 10,
+        borderRadius: 12,
     },
 });
 

@@ -6,31 +6,21 @@ import {API_URL} from "@env";
 
 export function getCryptos()
 {
-    async function getPriceArs(id)
-    {
-        const allData = (await axios(`${API_URL}/${id}`)).data;
-        const data = allData.market_data.current_price.ars;
-        return data;
-    };
-    
     return async function(dispatch)
     {
-        const allData = (await axios(`${API_URL}/markets?vs_currency=usd&per_page=50`)).data;
+        const allData = (await axios(`${API_URL}/markets?vs_currency=usd`)).data;
         const data = allData.map(e => {
-            // const price_ars = getPriceArs(e.id);
-            // console.log(price_ars);
-            
             return {
                 id: e.id,
                 name: e.name,
                 symbol: e.symbol,
                 image: e.image,
                 price_usd: e.current_price,
-                price_ars: e.current_price,
                 price_percentage_24h: e.price_change_percentage_24h,
             };
         });
-        // console.log("get cryptos");
+        // console.log(data);
+        console.log("get cryptos");
         return dispatch({type: "GET_CRYPTOS", payload: data});
     };
 };
@@ -58,12 +48,11 @@ export function getCryptoById(id)
     };
 };
 
-export function getCryptoByName(name)
+export function getCryptoByName(searchedCrypto)
 {
     return async function(dispatch)
     {
-        const data = (await axios(`${API_URL}/${name}`)).data;
-        return dispatch({type: "GET_CRYPTO_BY_NAME", payload: data});
+        return dispatch({type: "GET_CRYPTO_BY_NAME", payload: searchedCrypto});
     };
 };
 
