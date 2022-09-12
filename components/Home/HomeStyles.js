@@ -30,17 +30,6 @@ const styles = StyleSheet.create({
     {
         // color: "#fff",
     },
-    List:
-    {
-        display: "flex",
-        // justifyContent: "flex-start",
-        // alignItems: "center",
-    },
-    Link:
-    {
-        marginBottom: 10,
-        borderRadius: 12,
-    },
 });
 
 

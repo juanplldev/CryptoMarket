@@ -7,25 +7,30 @@ const styles = StyleSheet.create({
     {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         alignItems: "center",
         height: 70,
         marginBottom: 10,
     },
-    Button:
+    Section:
     {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // minWidth: 80,
-        // height: 50,
-        padding: 10,
-        backgroundColor: "#1e2633",
-        borderColor: "#23344e",
-        borderWidth: 2,
-        borderRadius: 8,
+        width: 100,
+        padding: 8,
     },
-    ButtonText:
+    ActiveSection:
+    {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: 100,
+        padding: 8,
+        borderBottomColor: "#23344e",
+        borderBottomWidth: 2,
+    },
+    Text:
     {
         color: "#919bbf",
     },

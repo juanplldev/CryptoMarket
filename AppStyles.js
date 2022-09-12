@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
     {
         height: "100%",
         Width: "100%",
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: 15,
+        paddingRight: 15,
         // paddingTop: 40,
-        paddingBottom: 10,
+        // paddingBottom: 180,
         backgroundColor: "#171b26",
     },
 });

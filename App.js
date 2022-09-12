@@ -1,6 +1,6 @@
 // Dependencies
 import React from "react";
-import {View} from "react-native";
+import {SafeAreaView} from "react-native";
 import {NativeRouter, Route, Routes} from "react-router-native";
 // Files
 import Home from "./components/Home/Home";
@@ -12,12 +12,12 @@ function App()
 {
     return (
         <NativeRouter>
-            <View style={styles.Container}>
+            <SafeAreaView style={styles.Container}>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/crypto/:id" element={<Detail/>}/>
                 </Routes>
-            </View>
+            </SafeAreaView>
         </NativeRouter>
     );
 };

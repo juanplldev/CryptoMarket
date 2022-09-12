@@ -19,7 +19,7 @@ export function getCryptos()
                 price_percentage_24h: e.price_change_percentage_24h,
             };
         });
-        // console.log(data);
+        // console.log(data[0].price_usd, "action");
         console.log("get cryptos");
         return dispatch({type: "GET_CRYPTOS", payload: data});
     };

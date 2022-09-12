@@ -1,42 +1,78 @@
 // Dependencies
-import React from "react";
-import {View, Text, Image} from "react-native";
+import React, {useEffect, useState} from "react";
+import {View, FlatList, TouchableOpacity} from "react-native";
+import {useNavigate} from "react-router-native";
+import {useDispatch, useSelector} from "react-redux";
 // Files
+import {getCryptos} from "../../redux/actions/actions";
+import CryptoCard from "../CryptoCard/CryptoCard";
+import Loader from "../Loader/Loader";
 import styles from "./CryptosStyles";
 
 
-function Cryptos({id, name, symbol, image, price_usd, price_percentage_24h})
+function Cryptos()
 {
-    function handlePercentage(percentage)
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const cryptos = useSelector(state => state.cryptos);
+    const [refresh, setRefresh] = useState(false);
+    const [timeInterval, setTimeInterval] = useState(false);
+    
+    useEffect(() => {
+        dispatch(getCryptos());
+    }, [dispatch, refresh, timeInterval]);
+    
+    setInterval(() => {
+        setTimeInterval(true);
+        // console.log("Time updated");
+    }, 30000);
+    
+    async function handleRefresh()
     {
-        const slicedPositivePercentage = percentage.toString().slice(0, 4);
-        const slicedNegativePercentage = percentage.toString().slice(0, 5);
-        
-        if(Math.sign(percentage) === 1)
-        {
-            return <Text style={styles.PositivePercentage}>+{slicedPositivePercentage}%</Text>;
-        }
-        else
-        {
-            return <Text style={styles.NegativePercentage}>{slicedNegativePercentage}%</Text>;
-        };
+        setRefresh(true);
+        await dispatch(getCryptos());
+        setRefresh(false);
     };
     
-    return (
-        <View style={styles.Container}>
-            <Image style={styles.Icons} source={{uri: image}}/>
-            
-            <View style={styles.NamesContainer}>
-                <Text style={styles.Symbol}>{symbol}</Text>
-                <Text style={styles.Name}>{name}</Text>
+    function handleNavigate(id)
+    {
+        navigate(`/crypto/${id}`);
+    };
+    
+    if(cryptos.length)
+    {
+        return (
+            <View style={styles.Container}>
+                
+                <FlatList style={styles.List}
+                    data={cryptos}
+                    // initialNumToRender={100}
+                    renderItem={({item}) => {
+                        return (
+                            <TouchableOpacity onPress={() => handleNavigate(item.id)} style={styles.Link}>
+                                <CryptoCard
+                                    id={item.id}
+                                    name={item.name}
+                                    symbol={item.symbol}
+                                    image={item.image}
+                                    price_usd={item.price_usd}
+                                    price_percentage_24h={item.price_percentage_24h}
+                                    key={item.id}
+                                    />
+                            </TouchableOpacity>
+                        );
+                    }}
+                    refreshing={refresh}
+                    onRefresh={handleRefresh}
+                />
+                
             </View>
-            
-            <View style={styles.PricesContainer}>
-                <Text style={styles.PriceUSD}>{price_usd} USD</Text>
-                {handlePercentage(price_percentage_24h)}
-            </View>
-        </View>
-    );
+        );
+    }
+    else
+    {
+        return <Loader/>;
+    };
 };
 
 
