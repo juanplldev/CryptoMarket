@@ -1,5 +1,6 @@
 // Dependencies
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // Files
 import {API_URL} from "@env";
 
@@ -19,8 +20,9 @@ export function getCryptos()
                 price_percentage_24h: e.price_change_percentage_24h,
             };
         });
-        // console.log(data[0].price_usd, "action");
+        
         console.log("get cryptos");
+        
         return dispatch({type: "GET_CRYPTOS", payload: data});
     };
 };
@@ -43,7 +45,9 @@ export function getCryptoById(id)
             description: allData.description.en,
             web: allData.links.homepage[0],
         };
+        
         // console.log(data.price_ars);
+        
         return dispatch({type: "GET_CRYPTO_BY_ID", payload: data});
     };
 };
@@ -56,10 +60,72 @@ export function getCryptoByName(searchedCrypto)
     };
 };
 
+export function getFavorites()
+{
+    return async function(dispatch)
+    {
+        const favorites = await AsyncStorage.getItem("Favorites");
+        const data = JSON.parse(favorites) || [];
+        
+        console.log("get favorites cryptos");
+        
+        return dispatch({type: "GET_FAVORITES", payload: data});
+    };
+};
+
+export function addFavorite(crypto)
+{
+    return async function(dispatch)
+    {
+        const favoritesString = await AsyncStorage.getItem("Favorites");
+        const favorites = JSON.parse(favoritesString) || [];
+        
+        if(!favorites.includes(crypto))
+        {
+            await favorites.push(crypto);
+            
+            const data = JSON.stringify(favorites);
+            await AsyncStorage.setItem("Favorites", data);
+            
+            return dispatch({type: "ADD_FAVORITE"});
+        };
+    };
+};
+
+export function deleteFavorite(crypto)
+{
+    return async function(dispatch)
+    {
+        const favoritesString = await AsyncStorage.getItem("Favorites");
+        const favorites = JSON.parse(favoritesString) || [];
+        
+        if(favorites.includes(crypto))
+        {
+            const index = favorites.indexOf(crypto);
+            await favorites.splice(index, 1);
+            
+            const data = JSON.stringify(favorites);
+            await AsyncStorage.setItem("Favorites", data);
+            
+            return dispatch({type: "DELETE_FAVORITE"});
+        };
+    };
+};
+
+export function cleanFavorites()
+{
+    return async function(dispatch)
+    {
+        await AsyncStorage.clear();
+        
+        return dispatch({type: "CLEAN_FAVORITES", payload: []});
+    };
+};
+
 export function cleanDetailState()
 {
     return async function(dispatch)
     {
-        return await dispatch({type: "CLEAN_DETAIL_STATE", payload: {}});
+        return dispatch({type: "CLEAN_DETAIL_STATE", payload: {}});
     };
-}
+};

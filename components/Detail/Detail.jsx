@@ -4,7 +4,7 @@ import {View, Text, Button, ScrollView} from "react-native";
 import {Link, useParams, useNavigate} from "react-router-native";
 import {useDispatch, useSelector} from "react-redux";
 // Files
-import {getCryptoById, cleanDetailState} from "../../redux/actions/actions";
+import {getCryptoById, cleanDetailState, addFavorite, deleteFavorite} from "../../redux/actions/actions";
 import Loader from "../Loader/Loader";
 import styles from "./DetailStyles";
 
@@ -29,7 +29,17 @@ function Detail()
     function handleUppercase(string)
     {
         return string && string.toUpperCase();
-    }
+    };
+    
+    function handleAddFavorite(cryptoId)
+    {
+        return dispatch(addFavorite(cryptoId));
+    };
+    
+    function handleDeleteFavorite(cryptoId)
+    {
+        return dispatch(deleteFavorite(cryptoId));
+    };
     
     if(Object.keys(cryptoDetail).length)
     {
@@ -46,8 +56,8 @@ function Detail()
                             <Text>{cryptoDetail.name}</Text>
                         </View>
                         <Button
-                            title="Go Back"
-                            onPress={handleNavigate}
+                            title="Add to favorites"
+                            onPress={() => handleAddFavorite(cryptoDetail.id)}
                         />
                     </View>
                     
@@ -55,6 +65,11 @@ function Detail()
                         <Text style={styles.Price}>{cryptoDetail.price_usd} USD</Text>
                         <Text style={styles.PricePercentage}>{cryptoDetail.price_percentage_24h}%</Text>
                     </View>
+                    
+                    <Button
+                        title="Remove from favorites"
+                        onPress={() => handleDeleteFavorite(cryptoDetail.id)}
+                    />
                     
                     <View style={styles.InfoContainer}>
                         <Text style={styles.InfoTitle}>Learn more about {cryptoDetail.name}</Text>

@@ -22,10 +22,10 @@ function Cryptos()
         dispatch(getCryptos());
     }, [dispatch, refresh, timeInterval]);
     
-    setInterval(() => {
-        setTimeInterval(true);
-        // console.log("Time updated");
-    }, 30000);
+    // setInterval(() => {
+    //     setTimeInterval(true);
+    //     console.log("Time updated");
+    // }, 30000);
     
     async function handleRefresh()
     {
@@ -43,13 +43,12 @@ function Cryptos()
     {
         return (
             <View style={styles.Container}>
-                
                 <FlatList style={styles.List}
                     data={cryptos}
-                    // initialNumToRender={100}
+                    initialNumToRender={100}
                     renderItem={({item}) => {
                         return (
-                            <TouchableOpacity onPress={() => handleNavigate(item.id)} style={styles.Link}>
+                            <TouchableOpacity onPress={() => handleNavigate(item.id)} style={styles.Button}>
                                 <CryptoCard
                                     id={item.id}
                                     name={item.name}
@@ -58,14 +57,13 @@ function Cryptos()
                                     price_usd={item.price_usd}
                                     price_percentage_24h={item.price_percentage_24h}
                                     key={item.id}
-                                    />
+                                />
                             </TouchableOpacity>
                         );
                     }}
                     refreshing={refresh}
                     onRefresh={handleRefresh}
                 />
-                
             </View>
         );
     }

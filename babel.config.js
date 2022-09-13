@@ -12,8 +12,6 @@ module.exports = function(api) {
         "safe": false,
         "allowUndefined": true,
       }],
-      // 'react-native-classname-to-style',
-      // ['react-native-platform-specific-extensions', { extensions: ['css'] }],
     ],
   };
 };

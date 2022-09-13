@@ -1,6 +1,6 @@
 // Dependencies
 import React, {useState} from "react";
-import {View, Text, StatusBar, TouchableOpacity, ScrollView} from "react-native";
+import {View, Text, StatusBar} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 // Files
 import {getCryptoByName} from "../../redux/actions/actions";

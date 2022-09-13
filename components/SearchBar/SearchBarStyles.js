@@ -5,11 +5,15 @@ import {StyleSheet} from "react-native";
 const styles = StyleSheet.create({
     Container:
     {
-        // width: "50%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: 35,
     },
     SearchInput:
     {
-        width: 150,
+        fontSize: 15,
+        textAlign: "center",
         color: "#fff",
     },
 });

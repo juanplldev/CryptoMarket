@@ -1,6 +1,5 @@
 // Dependencies
 import React from "react";
-// import {NavigationContainer, Route} from "@react-navigation/native";
 import {Provider} from "react-redux";
 // Files
 import App from "./App";
@@ -11,9 +10,7 @@ function AppWrapper()
 {
     return (
         <Provider store={store}>
-            {/* <NavigationContainer> */}
-                <App/>
-            {/* </NavigationContainer> */}
+            <App/>
         </Provider>
     );
 };

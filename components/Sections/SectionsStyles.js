@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         alignItems: "center",
         height: 70,
-        marginBottom: 10,
+        // marginBottom: 10,
     },
     Section:
     {
@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: 100,
         padding: 8,
+
     },
     ActiveSection:
     {
@@ -32,7 +33,13 @@ const styles = StyleSheet.create({
     },
     Text:
     {
+        fontSize: 16,
         color: "#919bbf",
+    },
+    ActiveText:
+    {
+        fontSize: 16,
+        color: "#dadeea",
     },
 });
 
