@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {View, Text, StatusBar} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 // Files
-import {getCryptoByName} from "../../redux/actions/actions";
+import {getCryptoByName, getFavoriteCryptoByName} from "../../redux/actions/actions";
 import Cryptos from "../Cryptos/Cryptos";
 import Favorites from "../Favorites/Favorites";
 import SearchBar from "../SearchBar/SearchBar";
@@ -15,14 +15,23 @@ function Home()
 {
     const dispatch = useDispatch();
     const allCryptos = useSelector(state => state.allCryptos);
+    const allFavoritesCryptos = useSelector(state => state.allFavoritesCryptos);
     const [section, setSection] = useState("all");
     
-    function handleInputChange(text)
+    function handleSearchAll(text)
     {
         const searchedCrypto = allCryptos.filter(e => {
             return e.id.includes(text.toLowerCase()) || e.symbol.includes(text.toLowerCase());
         });
         dispatch(getCryptoByName(searchedCrypto));
+    };
+    
+    function handleSearchFavorites(text)
+    {
+        const searchedCrypto = allFavoritesCryptos.filter(e => {
+            return e.id.includes(text.toLowerCase()) || e.symbol.includes(text.toLowerCase());
+        });
+        dispatch(getFavoriteCryptoByName(searchedCrypto));
     };
     
     return (
@@ -31,9 +40,11 @@ function Home()
             
             <View style={styles.Header}>
                 <Text style={styles.Title}>Crypto Market</Text>
-                <SearchBar
-                    searchFunction={handleInputChange}
-                />
+                {
+                    section === "all" ? <SearchBar searchFunction={handleSearchAll}/>
+                    :
+                    <SearchBar searchFunction={handleSearchFavorites}/>
+                }
             </View>
             
             <Sections

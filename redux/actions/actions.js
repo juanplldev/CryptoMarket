@@ -60,6 +60,14 @@ export function getCryptoByName(searchedCrypto)
     };
 };
 
+export function getFavoriteCryptoByName(searchedCrypto)
+{
+    return async function(dispatch)
+    {
+        return dispatch({type: "GET_FAVORITE_CRYPTO_BY_NAME", payload: searchedCrypto});
+    };
+};
+
 export function getFavorites()
 {
     return async function(dispatch)

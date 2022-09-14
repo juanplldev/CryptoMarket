@@ -4,6 +4,7 @@ const initialSate =
     allCryptos: [],
     cryptoDetail: {},
     favoritesCryptos: [],
+    allFavoritesCryptos: [],
 };
 
 
@@ -21,7 +22,12 @@ function rootReducer(state = initialSate, {type, payload})
             return {...state, cryptos: payload};
         
         case "GET_FAVORITES":
-            return {...state, favoritesCryptos: [...state.allCryptos.filter(e => payload.includes(e.id))]};
+            const newPayload = [...state.allCryptos.filter(e => payload.includes(e.id))];
+            
+            return {...state, favoritesCryptos: newPayload, allFavoritesCryptos: newPayload};
+        
+        case "GET_FAVORITE_CRYPTO_BY_NAME":
+            return {...state, favoritesCryptos: payload};
         
         case "ADD_FAVORITE":
             return {...state};

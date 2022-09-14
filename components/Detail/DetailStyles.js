@@ -6,12 +6,9 @@ const styles = StyleSheet.create({
     Container:
     {
         display: "flex",
-        // justifyContent: "center",
         alignItems: "center",
         width: "100%",
         height: "100%",
-        // margin: 30,
-        // backgroundColor: "#141414",
     },
     Header:
     {
@@ -19,13 +16,36 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        // marginTop: 40,
+        width: "100%",
+        height: 80,
+        padding: 15,
+        marginBottom: 30,
+        backgroundColor: "#1e2633",
+    },
+    IconContainer:
+    {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    Icon:
+    {
+        color: "#aab6e0",
     },
     NameContainer:
     {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+    },
+    Symbol:
+    {
+        fontSize: 20,
+        color: "#dadeea",
+    },
+    Name:
+    {
+        color: "#dadeea",
     },
     PriceContainer:
     {
