@@ -14,8 +14,10 @@ import styles from "./HomeStyles";
 function Home()
 {
     const dispatch = useDispatch();
+    
     const allCryptos = useSelector(state => state.allCryptos);
     const allFavoritesCryptos = useSelector(state => state.allFavoritesCryptos);
+    
     const [section, setSection] = useState("all");
     
     function handleSearchAll(text)

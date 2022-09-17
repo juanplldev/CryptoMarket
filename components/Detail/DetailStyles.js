@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     Container:
     {
         display: "flex",
+        justifyContent: "center",
         alignItems: "center",
         width: "100%",
         height: "100%",
@@ -19,7 +20,6 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 80,
         padding: 15,
-        marginBottom: 30,
         backgroundColor: "#1e2633",
     },
     IconContainer:
@@ -47,24 +47,70 @@ const styles = StyleSheet.create({
     {
         color: "#dadeea",
     },
-    PriceContainer:
+    ScrollView:
     {
         display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
+        // justifyContent: "center",
+        alignItems: "center",
+    },
+    RateContainer:
+    {
+        display: "flex",
+        justifyContent: "space-between",
         alignItems: "center",
         width: "90%",
         height: 400,
-        backgroundColor: "gray"
+        marginTop: 30,
+        backgroundColor: "#1e2633",
+        borderRadius: 15,
     },
-    Price:
+    PriceContainer:
     {
-        fontSize: 24,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "90%",
+        height: 80,
+        marginTop: 40,
     },
-    PricePercentage:
+    TopPrices:
     {
-        fontSize: 15,
-        marginLeft: 30,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "100%",
+    },
+    PriceUsd:
+    {
+        fontSize: 28,
+        color: "#fff",
+    },
+    PriceArs:
+    {
+        fontSize: 22,
+        color: "#fff",
+    },
+    PriceChangeUsd:
+    {
+        fontSize: 16,
+        color: "gray",
+    },
+    PriceChangeArs:
+    {
+        fontSize: 12,
+        color: "gray",
+    },
+    PositivePercentage:
+    {
+        fontSize: 20,
+        color: "#51a239",
+    },
+    NegativePercentage:
+    {
+        fontSize: 20,
+        color: "#d15150",
     },
     InfoContainer:
     {
@@ -76,6 +122,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         marginBottom: 15,
+        color: "#aab6e0",
     },
 });
 

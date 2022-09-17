@@ -9,16 +9,15 @@ function CryptoCard({id, name, symbol, image, price_usd, price_percentage_24h})
 {
     function handlePercentage(percentage)
     {
-        const slicedPositivePercentage = percentage.toString().slice(0, 4);
-        const slicedNegativePercentage = percentage.toString().slice(0, 5);
+        const shortedPrice = percentage.toFixed(2);
         
         if(Math.sign(percentage) === 1)
         {
-            return <Text style={styles.PositivePercentage}>+{slicedPositivePercentage}%</Text>;
+            return <Text style={styles.PositivePercentage}>+{shortedPrice}%</Text>;
         }
         else
         {
-            return <Text style={styles.NegativePercentage}>{slicedNegativePercentage}%</Text>;
+            return <Text style={styles.NegativePercentage}>{shortedPrice}%</Text>;
         };
     };
     

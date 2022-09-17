@@ -5,6 +5,7 @@ const initialSate =
     cryptoDetail: {},
     favoritesCryptos: [],
     allFavoritesCryptos: [],
+    chartValues: [],
 };
 
 
@@ -28,6 +29,9 @@ function rootReducer(state = initialSate, {type, payload})
         
         case "GET_FAVORITE_CRYPTO_BY_NAME":
             return {...state, favoritesCryptos: payload};
+        
+        case "GET_MARKET_CHART":
+            return {...state, chartValues: payload};
         
         case "ADD_FAVORITE":
             return {...state};

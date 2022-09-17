@@ -14,7 +14,9 @@ function Cryptos()
 {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
     const cryptos = useSelector(state => state.cryptos);
+    
     const [refresh, setRefresh] = useState(false);
     const [timeInterval, setTimeInterval] = useState(false);
     

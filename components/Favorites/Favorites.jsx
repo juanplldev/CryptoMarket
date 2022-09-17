@@ -14,7 +14,9 @@ function Favorites()
 {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
     const favoritesCryptos = useSelector(state => state.favoritesCryptos);
+    
     const [refresh, setRefresh] = useState(false);
     const [timeInterval, setTimeInterval] = useState(false);
     

@@ -40,6 +40,8 @@ export function getCryptoById(id)
             image: allData.image.large,
             price_usd: allData.market_data.current_price.usd,
             price_ars: allData.market_data.current_price.ars,
+            price_usd_24h: allData.market_data.price_change_24h,
+            price_ars_24h: allData.market_data.price_change_24h_in_currency.ars,
             price_percentage_24h: allData.market_data.price_change_percentage_24h,
             hashing_algorithm: allData.hashing_algorithm,
             description: allData.description.en,
@@ -60,14 +62,6 @@ export function getCryptoByName(searchedCrypto)
     };
 };
 
-export function getFavoriteCryptoByName(searchedCrypto)
-{
-    return async function(dispatch)
-    {
-        return dispatch({type: "GET_FAVORITE_CRYPTO_BY_NAME", payload: searchedCrypto});
-    };
-};
-
 export function getFavorites()
 {
     return async function(dispatch)
@@ -78,6 +72,25 @@ export function getFavorites()
         console.log("get favorites cryptos");
         
         return dispatch({type: "GET_FAVORITES", payload: data});
+    };
+};
+
+export function getFavoriteCryptoByName(searchedCrypto)
+{
+    return async function(dispatch)
+    {
+        return dispatch({type: "GET_FAVORITE_CRYPTO_BY_NAME", payload: searchedCrypto});
+    };
+};
+
+export function getMarketChart(id)
+{
+    return async function(dispatch)
+    {
+        const allData = (await axios(`${API_URL}/${id}/market_chart?vs_currency=usd&days=7`)).data;
+        const data = allData.prices;
+        
+        return dispatch({type: "GET_MARKET_CHART", payload: data});
     };
 };
 
