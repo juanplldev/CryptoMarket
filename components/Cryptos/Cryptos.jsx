@@ -16,6 +16,7 @@ function Cryptos()
     const navigate = useNavigate();
     
     const cryptos = useSelector(state => state.cryptos);
+    const allCryptos = useSelector(state => state.allCryptos);
     
     const [refresh, setRefresh] = useState(false);
     const [timeInterval, setTimeInterval] = useState(false);
@@ -41,7 +42,7 @@ function Cryptos()
         navigate(`/crypto/${id}`);
     };
     
-    if(cryptos.length)
+    if(allCryptos.length)
     {
         return (
             <View style={styles.Container}>

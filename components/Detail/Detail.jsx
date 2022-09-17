@@ -91,7 +91,7 @@ function Detail()
         await dispatch(getFavorites());
     };
     
-    if(Object.keys(cryptoDetail).length)
+    if(Object.keys(cryptoDetail).length && chartValues.length)
     {
         return (
             <View style={styles.Container}>
@@ -134,18 +134,21 @@ function Detail()
                                     <Text style={styles.PriceUsd}>{cryptoDetail.price_usd} USD</Text>
                                     <Text style={styles.PriceArs}>{cryptoDetail.price_ars} ARS</Text>
                                 </View>
+                                
                                 {handlePercentage(cryptoDetail.price_percentage_24h)}
                             </View>
                             
-                            <Text style={styles.PriceChangeUsd}>{handlePriceChange(cryptoDetail.price_usd_24h)} USD</Text>
-                            <Text style={styles.PriceChangeArs}>{handlePriceChange(cryptoDetail.price_ars_24h)} ARS</Text>
+                            <View style={styles.BottomPrices}>
+                                <Text style={styles.PriceChangeUsd}>{handlePriceChange(cryptoDetail.price_usd_24h)} USD</Text>
+                                <Text style={styles.PriceChangeArs}>{handlePriceChange(cryptoDetail.price_ars_24h)} ARS</Text>
+                            </View>
                         </View>
                         
-                        <Chart
-                            id={id}
-                            chartValues={chartValues}
-                        />
-                        
+                        <View style={styles.ChartContainer}>
+                            <Chart
+                                chartValues={chartValues}
+                            />
+                        </View>
                     </View>
                     
                     <View style={styles.InfoContainer}>

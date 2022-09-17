@@ -9,7 +9,7 @@ function Loader()
 {
     return (
         <View style={styles.Container}>
-            <ActivityIndicator size={"large"}/>
+            <ActivityIndicator size="large" color="white"/>
         </View>
     );
 };

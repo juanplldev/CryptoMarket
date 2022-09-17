@@ -1,20 +1,19 @@
 // Dependencies
 import React, {useState, useEffect} from "react";
 import {View, Text, TouchableOpacity, RefreshControl, Dimensions, ScrollView} from "react-native";
-import {useDispatch, useSelector} from "react-redux";
+import {ChartDot, ChartPath, ChartPathProvider} from '@rainbow-me/animated-charts';
 // Files
-import {getMarketChart} from "../../redux/actions/actions";
-import Loader from "../Loader/Loader";
 import styles from "./ChartStyles";
 
 
-function Chart({id, chartValues})
+function Chart({chartValues})
 {
-    const screenWidth = Dimensions.get('window').width;
-    
     return (
-        <View>
-
+        <View style={styles.Container}>
+            <ChartPathProvider data={{points: chartValues, smoothingStrategy: "bezier"}}>
+                <ChartPath height={150} width={370} stroke="white"/>
+                <ChartDot style={styles.Dot} />
+            </ChartPathProvider>
         </View>
     );
 };

@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
     Container:
     {
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        // justifyContent: "space-between",
+        // alignItems: "center",
         width: "100%",
         height: "100%",
     },
@@ -52,14 +52,16 @@ const styles = StyleSheet.create({
         display: "flex",
         // justifyContent: "center",
         alignItems: "center",
+        width: "100%",
+        height: "100%",
     },
     RateContainer:
     {
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
+        // alignItems: "center",
         width: "90%",
-        height: 400,
+        height: 450,
         marginTop: 30,
         backgroundColor: "#1e2633",
         borderRadius: 15,
@@ -70,9 +72,12 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "center",
-        width: "90%",
-        height: 80,
-        marginTop: 40,
+        width: "100%",
+        height: 130,
+        marginTop: 30,
+        // marginBottom: 30,
+        paddingLeft: 30,
+        paddingRight: 30,
     },
     TopPrices:
     {
@@ -92,6 +97,13 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: "#fff",
     },
+    BottomPrices:
+    {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
     PriceChangeUsd:
     {
         fontSize: 16,
@@ -101,6 +113,17 @@ const styles = StyleSheet.create({
     {
         fontSize: 12,
         color: "gray",
+    },
+    ChartContainer:
+    {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "60%",
+        // backgroundColor: "gray",
+        // opacity: 0.2,
     },
     PositivePercentage:
     {

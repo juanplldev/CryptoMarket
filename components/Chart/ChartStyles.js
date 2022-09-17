@@ -8,16 +8,13 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // width: "100%",
-        // height: "100%",
     },
-    ChartContainer:
+    Dot:
     {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: 200,
-        height: 180,
+        backgroundColor: "#aab6e0",
+        width: 12,
+        height: 12,
+        borderRadius: 100,
     },
 });
 

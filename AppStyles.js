@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     Container:
     {
         height: "100%",
-        Width: "100%",
+        width: "100%",
         // paddingLeft: 15,
         // paddingRight: 15,
         // paddingTop: 40,

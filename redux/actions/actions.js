@@ -83,13 +83,13 @@ export function getFavoriteCryptoByName(searchedCrypto)
     };
 };
 
-export function getMarketChart(id)
+export function getMarketChart(id, days=7)
 {
     return async function(dispatch)
     {
-        const allData = (await axios(`${API_URL}/${id}/market_chart?vs_currency=usd&days=7`)).data;
+        const allData = (await axios(`${API_URL}/${id}/market_chart?vs_currency=usd&days=${days}`)).data;
         const data = allData.prices;
-        
+        // console.log(data, "action");
         return dispatch({type: "GET_MARKET_CHART", payload: data});
     };
 };
@@ -147,6 +147,6 @@ export function cleanDetailState()
 {
     return async function(dispatch)
     {
-        return dispatch({type: "CLEAN_DETAIL_STATE", payload: {}});
+        return dispatch({type: "CLEAN_DETAIL_STATE", payload: [{}, []]});
     };
 };

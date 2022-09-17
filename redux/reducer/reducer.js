@@ -31,7 +31,18 @@ function rootReducer(state = initialSate, {type, payload})
             return {...state, favoritesCryptos: payload};
         
         case "GET_MARKET_CHART":
-            return {...state, chartValues: payload};
+            const transformedPayload = [];
+            
+            payload.map(e => {
+                const newObject =
+                {
+                    x: e[0],
+                    y: e[1],
+                };
+                transformedPayload.push(newObject);
+            });
+            
+            return {...state, chartValues: transformedPayload};
         
         case "ADD_FAVORITE":
             return {...state};
@@ -43,7 +54,7 @@ function rootReducer(state = initialSate, {type, payload})
             return {...state, favoritesCryptos: payload};
         
         case "CLEAN_DETAIL_STATE":
-            return {...state, cryptoDetail: payload};
+            return {...state, cryptoDetail: payload[0], chartValues: payload[1]};
         
         default:
             return {...state};
