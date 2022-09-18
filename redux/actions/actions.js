@@ -83,7 +83,7 @@ export function getFavoriteCryptoByName(searchedCrypto)
     };
 };
 
-export function getMarketChart(id, days=7)
+export function getMarketChart(id, days)
 {
     return async function(dispatch)
     {
@@ -147,6 +147,14 @@ export function cleanDetailState()
 {
     return async function(dispatch)
     {
-        return dispatch({type: "CLEAN_DETAIL_STATE", payload: [{}, []]});
+        return dispatch({type: "CLEAN_DETAIL_STATE", payload: []});
+    };
+};
+
+export function cleanChartState()
+{
+    return async function(dispatch)
+    {
+        return dispatch({type: "CLEAN_CHART_STATE", payload: {}});
     };
 };

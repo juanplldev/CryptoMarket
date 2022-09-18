@@ -5,7 +5,7 @@ import {Link, useParams, useNavigate} from "react-router-native";
 import {useDispatch, useSelector} from "react-redux";
 import Icon from "react-native-vector-icons/AntDesign";
 // Files
-import {getCryptoById, cleanDetailState, addFavorite, deleteFavorite, getFavorites, getMarketChart} from "../../redux/actions/actions";
+import {getCryptoById, cleanDetailState, addFavorite, deleteFavorite, getFavorites, getMarketChart, cleanChartState} from "../../redux/actions/actions";
 import Chart from "../Chart/Chart";
 import Loader from "../Loader/Loader";
 import styles from "./DetailStyles";
@@ -24,20 +24,17 @@ function Detail()
     const isFavorite = allFavoritesCryptos.filter(e => e.id === id).length ? true : false;
     
     const [refresh, setRefresh] = useState(false);
-    
-    function handleBackAction()
-    {
-        const action = BackHandler.exitApp();
-        BackHandler.addEventListener("hardwareBackPress", action);
-    };
-    
+    const [chartFilter, setChartFilter] = useState(14);
     
     useEffect(() => {
         dispatch(getCryptoById(id));
         dispatch(getFavorites());
-        dispatch(getMarketChart(id));
-        dispatch(cleanDetailState());
-    }, [dispatch, id]);
+    }, []);
+    
+    useEffect(() => {
+        dispatch(cleanChartState());
+        dispatch(getMarketChart(id, chartFilter));
+    }, [chartFilter]);
     
     function handlePercentage(percentage)
     {
@@ -64,20 +61,22 @@ function Detail()
     function handleNavigate()
     {
         navigate("/");
+        dispatch(cleanDetailState());
+        dispatch(cleanChartState());
     };
     
     async function handleRefresh()
     {
-        setRefresh(true);
+        await setRefresh(true);
         await dispatch(getCryptoById(id));
-        await dispatch(getMarketChart(id));
-        setRefresh(false);
+        await dispatch(getMarketChart(id, chartFilter));
+        await setRefresh(false);
     };
     
-    function handleUppercase(string)
-    {
-        return string && string.toUpperCase();
-    };
+    // function handleUppercase(string)
+    // {
+    //     return string && string.toUpperCase();
+    // };
     
     async function handleAddFavorite(cryptoId)
     {
@@ -91,7 +90,8 @@ function Detail()
         await dispatch(getFavorites());
     };
     
-    if(Object.keys(cryptoDetail).length && chartValues.length)
+    
+    if(Object.keys(cryptoDetail).length)
     {
         return (
             <View style={styles.Container}>
@@ -101,7 +101,7 @@ function Detail()
                     </TouchableOpacity>
                     
                     <View style={styles.NameContainer}>
-                        <Text style={styles.Symbol}>{handleUppercase(cryptoDetail.symbol)}</Text>
+                        <Text style={styles.Symbol}>{cryptoDetail.symbol.toUpperCase()}</Text>
                         <Text style={styles.Name}>{cryptoDetail.name}</Text>
                     </View>
                     
@@ -149,6 +149,32 @@ function Detail()
                                 chartValues={chartValues}
                             />
                         </View>
+                    </View>
+                    
+                    <View style={styles.ChartFiltersContainer}>
+                        <TouchableOpacity onPress={() => setChartFilter(1)} style={chartFilter === 1 ? styles.ActiveChartFilter : styles.ChartFilter}>
+                            <Text style={styles.ChartFilterText}>1D</Text>
+                        </TouchableOpacity>
+                        
+                        <TouchableOpacity onPress={() => setChartFilter(7)} style={chartFilter === 7 ? styles.ActiveChartFilter : styles.ChartFilter}>
+                            <Text style={styles.ChartFilterText}>1W</Text>
+                        </TouchableOpacity>
+                        
+                        <TouchableOpacity onPress={() => setChartFilter(14)} style={chartFilter === 14 ? styles.ActiveChartFilter : styles.ChartFilter}>
+                            <Text style={styles.ChartFilterText}>2W</Text>
+                        </TouchableOpacity>
+                        
+                        <TouchableOpacity onPress={() => setChartFilter(30)} style={chartFilter === 30 ? styles.ActiveChartFilter : styles.ChartFilter}>
+                            <Text style={styles.ChartFilterText}>1M</Text>
+                        </TouchableOpacity>
+                        
+                        <TouchableOpacity onPress={() => setChartFilter(365)} style={chartFilter === 365 ? styles.ActiveChartFilter : styles.ChartFilter}>
+                            <Text style={styles.ChartFilterText}>1Y</Text>
+                        </TouchableOpacity>
+                        
+                        {/* <TouchableOpacity onPress={() => setChartFilter("max")} style={chartFilter === "max" ? styles.ActiveChartFilter : styles.ChartFilter}>
+                            <Text style={styles.ChartFilterText}>All</Text>
+                        </TouchableOpacity> */}
                     </View>
                     
                     <View style={styles.InfoContainer}>

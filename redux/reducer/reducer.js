@@ -54,7 +54,10 @@ function rootReducer(state = initialSate, {type, payload})
             return {...state, favoritesCryptos: payload};
         
         case "CLEAN_DETAIL_STATE":
-            return {...state, cryptoDetail: payload[0], chartValues: payload[1]};
+            return {...state, cryptoDetail: payload};
+        
+        case "CLEAN_CHART_STATE":
+            return {...state, chartValues: payload};
         
         default:
             return {...state};

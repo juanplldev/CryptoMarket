@@ -125,6 +125,41 @@ const styles = StyleSheet.create({
         // backgroundColor: "gray",
         // opacity: 0.2,
     },
+    ChartFiltersContainer:
+    {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        width: "90%",
+        height: 50,
+        marginTop: 30,
+        backgroundColor: "#1e2633",
+        borderRadius: 10,
+    },
+    ChartFilter:
+    {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "20%",
+        height: "100%",
+    },
+    ActiveChartFilter:
+    {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "20%",
+        height: "100%",
+        backgroundColor: "rgba(170, 182, 224, 0.6)",
+        borderRadius: 10,
+    },
+    ChartFilterText:
+    {
+        color: "#dadeea",
+        fontSize: 15,
+    },
     PositivePercentage:
     {
         fontSize: 20,
