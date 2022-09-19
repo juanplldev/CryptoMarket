@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from "react-redux";
 // Files
 import {getCryptos, getFavorites, cleanFavorites} from "../../redux/actions/actions";
 import CryptoCard from "../CryptoCard/CryptoCard";
-import Loader from "../Loader/Loader";
 import styles from "./FavoritesStyles";
 
 
@@ -18,17 +17,20 @@ function Favorites()
     const favoritesCryptos = useSelector(state => state.favoritesCryptos);
     
     const [refresh, setRefresh] = useState(false);
-    const [timeInterval, setTimeInterval] = useState(false);
     
     useEffect(() => {
         dispatch(getCryptos());
         dispatch(getFavorites());
-    }, [dispatch, refresh, timeInterval]);
+    }, []);
     
-    // setInterval(() => {
-    //     setTimeInterval(true);
-    //     console.log("Time updated");
-    // }, 30000);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            dispatch(getCryptos());
+            dispatch(getFavorites());
+        }, 15000);
+        
+        return () => clearInterval(interval);
+    }, []);
     
     async function handleRefresh()
     {
@@ -87,7 +89,8 @@ function Favorites()
     {
         return (
             <View style={styles.TextContainer}>
-                <Text style={styles.Text}>In this section you will be able to see the cryptos that you added as favorites.</Text>
+                {/* <Text style={styles.Text}>In this section you will be able to see the cryptos that you added as favorites.</Text> */}
+                <Text style={styles.Text}>In this section you will be able to see your favorites cryptos.</Text>
             </View>
         );
     };

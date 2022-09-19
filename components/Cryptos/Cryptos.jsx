@@ -19,16 +19,18 @@ function Cryptos()
     const allCryptos = useSelector(state => state.allCryptos);
     
     const [refresh, setRefresh] = useState(false);
-    const [timeInterval, setTimeInterval] = useState(false);
     
     useEffect(() => {
         dispatch(getCryptos());
-    }, [dispatch, refresh, timeInterval]);
+    }, []);
     
-    // setInterval(() => {
-    //     setTimeInterval(true);
-    //     console.log("Time updated");
-    // }, 30000);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            dispatch(getCryptos());
+        }, 15000);
+        
+        return () => clearInterval(interval);
+    }, []);
     
     async function handleRefresh()
     {

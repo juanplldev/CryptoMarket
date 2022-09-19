@@ -1,11 +1,12 @@
 // Dependencies
 import React, {useState, useEffect} from "react";
-import {View, Text, ScrollView, BackHandler, TouchableOpacity, Linking, RefreshControl} from "react-native";
+import {View, Text, ScrollView, BackHandler, TouchableOpacity, RefreshControl, Image} from "react-native";
 import {Link, useParams, useNavigate} from "react-router-native";
 import {useDispatch, useSelector} from "react-redux";
+import * as Linking from "expo-linking";
 import Icon from "react-native-vector-icons/AntDesign";
 // Files
-import {getCryptoById, cleanDetailState, addFavorite, deleteFavorite, getFavorites, getMarketChart, cleanChartState} from "../../redux/actions/actions";
+import {getCryptoInfoById, getCryptoPricesById, getFavorites, getMarketChart, addFavorite, deleteFavorite, cleanDetailState, cleanChartState} from "../../redux/actions/actions";
 import Chart from "../Chart/Chart";
 import Loader from "../Loader/Loader";
 import styles from "./DetailStyles";
@@ -17,9 +18,10 @@ function Detail()
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
-    const cryptoDetail = useSelector(state => state.cryptoDetail);
-    const allFavoritesCryptos = useSelector(state => state.allFavoritesCryptos);
+    const cryptoInfo = useSelector(state => state.cryptoInfo);
+    const cryptoPrices = useSelector(state => state.cryptoPrices);
     const chartValues = useSelector(state => state.chartValues);
+    const allFavoritesCryptos = useSelector(state => state.allFavoritesCryptos);
     
     const isFavorite = allFavoritesCryptos.filter(e => e.id === id).length ? true : false;
     
@@ -27,7 +29,8 @@ function Detail()
     const [chartFilter, setChartFilter] = useState(14);
     
     useEffect(() => {
-        dispatch(getCryptoById(id));
+        dispatch(getCryptoInfoById(id));
+        dispatch(getCryptoPricesById(id));
         dispatch(getFavorites());
     }, []);
     
@@ -35,6 +38,14 @@ function Detail()
         dispatch(cleanChartState());
         dispatch(getMarketChart(id, chartFilter));
     }, [chartFilter]);
+    
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         dispatch(getCryptoPricesById(id));
+    //     }, 15000);
+        
+    //     return () => clearInterval(interval);
+    // }, []);
     
     function handlePercentage(percentage)
     {
@@ -68,15 +79,10 @@ function Detail()
     async function handleRefresh()
     {
         await setRefresh(true);
-        await dispatch(getCryptoById(id));
+        await dispatch(getCryptoPricesById(id));
         await dispatch(getMarketChart(id, chartFilter));
         await setRefresh(false);
     };
-    
-    // function handleUppercase(string)
-    // {
-    //     return string && string.toUpperCase();
-    // };
     
     async function handleAddFavorite(cryptoId)
     {
@@ -90,8 +96,28 @@ function Detail()
         await dispatch(getFavorites());
     };
     
+    function handleOpenBinance()
+    {
+        const symbol = cryptoInfo.symbol.toUpperCase();
+        
+        Linking.openURL(`https://www.binance.com/en/trade/${symbol}_USDT`);
+    };
     
-    if(Object.keys(cryptoDetail).length)
+    function handleOpenExplorer()
+    {
+        const symbol = cryptoInfo.symbol;
+        
+        Linking.openURL(`https://www.blockchain.com/explorer/assets/${symbol}`);
+    };
+    
+    function handleWebLinkFormater(string)
+    {
+        const newLink = string.replace(/http(s)?(:)?(\/\/)?|(\/\/)?(www\.)?/g, "").replace(/\/$/, "");
+        
+        return <Text style={styles.LinkSubText}>{newLink}</Text>;
+    };
+    
+    if(Object.keys(cryptoInfo).length && Object.keys(cryptoPrices).length)
     {
         return (
             <View style={styles.Container}>
@@ -101,8 +127,8 @@ function Detail()
                     </TouchableOpacity>
                     
                     <View style={styles.NameContainer}>
-                        <Text style={styles.Symbol}>{cryptoDetail.symbol.toUpperCase()}</Text>
-                        <Text style={styles.Name}>{cryptoDetail.name}</Text>
+                        <Text style={styles.Symbol}>{cryptoInfo.symbol.toUpperCase()}</Text>
+                        <Text style={styles.Name}>{cryptoInfo.name}</Text>
                     </View>
                     
                     {
@@ -118,8 +144,8 @@ function Detail()
                 </View>
                 
                 <ScrollView
-                contentContainerStyle={styles.ScrollView}
-                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={styles.ScrollView}
+                    showsVerticalScrollIndicator={true}
                     refreshControl={
                         <RefreshControl
                             refreshing={refresh}
@@ -131,16 +157,16 @@ function Detail()
                         <View style={styles.PriceContainer}>
                             <View style={styles.TopPrices}>
                                 <View>
-                                    <Text style={styles.PriceUsd}>{cryptoDetail.price_usd} USD</Text>
-                                    <Text style={styles.PriceArs}>{cryptoDetail.price_ars} ARS</Text>
+                                    <Text style={styles.PriceUsd}>{cryptoPrices.price_usd} USD</Text>
+                                    <Text style={styles.PriceArs}>{cryptoPrices.price_ars} ARS</Text>
                                 </View>
                                 
-                                {handlePercentage(cryptoDetail.price_percentage_24h)}
+                                {handlePercentage(cryptoPrices.price_percentage_24h)}
                             </View>
                             
                             <View style={styles.BottomPrices}>
-                                <Text style={styles.PriceChangeUsd}>{handlePriceChange(cryptoDetail.price_usd_24h)} USD</Text>
-                                <Text style={styles.PriceChangeArs}>{handlePriceChange(cryptoDetail.price_ars_24h)} ARS</Text>
+                                <Text style={styles.PriceChangeUsd}>{handlePriceChange(cryptoPrices.price_usd_24h)} USD</Text>
+                                <Text style={styles.PriceChangeArs}>{handlePriceChange(cryptoPrices.price_ars_24h)} ARS</Text>
                             </View>
                         </View>
                         
@@ -177,23 +203,44 @@ function Detail()
                         </TouchableOpacity> */}
                     </View>
                     
-                    <View style={styles.InfoContainer}>
-                        <Text style={styles.InfoTitle}>Learn more about {cryptoDetail.name}</Text>
-                        
-                        <View>
-                            <TouchableOpacity>
-                                <Text>Website</Text>
-                            </TouchableOpacity>
-                            
-                            <TouchableOpacity>
-                                <Text>Website</Text>
-                            </TouchableOpacity>
-                            
-                            <TouchableOpacity>
-                                <Text>Website</Text>
-                            </TouchableOpacity>
+                    <Text style={styles.InfoTitle}>Learn more about {cryptoInfo.name}</Text>
+                    
+                    {
+                        cryptoInfo.description ?
+                        <View style={styles.InfoContainer}>
+                            <Text style={styles.DecriptionText}>{cryptoInfo.description}</Text>
                         </View>
-                        {/* <Text>{cryptoDetail.description}</Text> */}
+                        :
+                        null
+                    }
+                    
+                    <View style={styles.LinksContainer}>
+                        <TouchableOpacity onPress={() => {Linking.openURL(cryptoInfo.website)}} style={styles.LinkButton}>
+                            <Image style={styles.LinkImage} source={{uri: "https://www.nicepng.com/png/full/170-1709508_web-solutions-web-icon-white-png.png"}} />
+                            
+                            <View style={styles.LinkTexts}>
+                                <Text style={styles.LinkText}>Website</Text>
+                                {handleWebLinkFormater(cryptoInfo.website)}
+                            </View>
+                        </TouchableOpacity>
+                        
+                        <TouchableOpacity onPress={handleOpenExplorer} style={styles.LinkButton}>
+                            <Image style={styles.LinkImage} source={{uri: "https://exchange.blockchain.com/api/assets/images/logo.png"}} />
+                            
+                            <View style={styles.LinkTexts}>
+                                <Text style={styles.LinkText}>Explorer</Text>
+                                <Text style={styles.LinkSubText}>blockchain.com</Text>
+                            </View>
+                        </TouchableOpacity>
+                        
+                        <TouchableOpacity onPress={handleOpenBinance} style={styles.LinkButton}>
+                            <Image style={styles.LinkImage} source={{uri: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Binance-coin-bnb-logo.png"}} />
+                            
+                            <View style={styles.LinkTexts}>
+                                <Text style={styles.LinkText}>View on Binance</Text>
+                                <Text style={styles.LinkSubText}>binance.com</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             </View>

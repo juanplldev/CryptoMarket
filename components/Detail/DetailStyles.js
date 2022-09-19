@@ -21,6 +21,8 @@ const styles = StyleSheet.create({
         height: 80,
         padding: 15,
         backgroundColor: "#1e2633",
+        borderBottomColor: "rgba(170, 182, 224, 0.2)",
+        borderBottomWidth: 1,
     },
     IconContainer:
     {
@@ -50,10 +52,10 @@ const styles = StyleSheet.create({
     ScrollView:
     {
         display: "flex",
-        // justifyContent: "center",
+        flexDirection: "column",
         alignItems: "center",
         width: "100%",
-        height: "100%",
+        // height: "100%",
     },
     RateContainer:
     {
@@ -170,17 +172,68 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: "#d15150",
     },
+    InfoTitle:
+    {
+        fontSize: 21,
+        textAlign: "center",
+        color: "#aab6e0",
+        marginTop: 40,
+        marginBottom: 30,
+    },
     InfoContainer:
     {
         width: "90%",
-        marginTop: 50,
+        marginBottom: 50,
+        padding: 15,
+        backgroundColor: "#1e2633",
+        borderRadius: 15,
     },
-    InfoTitle:
+    DecriptionText:
     {
-        fontSize: 20,
         textAlign: "center",
-        marginBottom: 15,
-        color: "#aab6e0",
+        color: "rgba(255, 255, 255, 0.6)",
+        fontSize: 15,
+    },
+    LinksContainer:
+    {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        width: "100%",
+        // height: 60,
+        backgroundColor: "#1e2633",
+        borderRadius: 30,
+    },
+    LinkButton:
+    {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        width: "100%",
+        height: 80,
+        padding: 25,
+    },
+    LinkImage:
+    {
+        width: 50,
+        height: 50,
+    },
+    LinkTexts:
+    {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        marginLeft: 20,
+    },
+    LinkText:
+    {
+        color: "#fff",
+        fontSize: 16,
+    },
+    LinkSubText:
+    {
+        color: "rgba(250, 250, 250, 0.5)",
     },
 });
 

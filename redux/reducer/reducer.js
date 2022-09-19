@@ -2,7 +2,8 @@ const initialSate =
 {
     cryptos: [],
     allCryptos: [],
-    cryptoDetail: {},
+    cryptoInfo: {},
+    cryptoPrices: {},
     favoritesCryptos: [],
     allFavoritesCryptos: [],
     chartValues: [],
@@ -16,8 +17,11 @@ function rootReducer(state = initialSate, {type, payload})
         case "GET_CRYPTOS":
             return {...state, cryptos: payload, allCryptos: payload};
         
-        case "GET_CRYPTO_BY_ID":
-            return {...state, cryptoDetail: payload};
+        case "GET_CRYPTO_INFO_BY_ID":
+            return {...state, cryptoInfo: payload};
+        
+        case "GET_CRYPTO_PRICES_BY_ID":
+            return {...state, cryptoPrices: payload};
         
         case "GET_CRYPTO_BY_NAME":
             return {...state, cryptos: payload};
@@ -54,7 +58,7 @@ function rootReducer(state = initialSate, {type, payload})
             return {...state, favoritesCryptos: payload};
         
         case "CLEAN_DETAIL_STATE":
-            return {...state, cryptoDetail: payload};
+            return {...state, cryptoInfo: payload, cryptoPrices: payload};
         
         case "CLEAN_CHART_STATE":
             return {...state, chartValues: payload};

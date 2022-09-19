@@ -27,7 +27,7 @@ export function getCryptos()
     };
 };
 
-export function getCryptoById(id)
+export function getCryptoInfoById(id)
 {
     return async function(dispatch)
     {
@@ -38,19 +38,33 @@ export function getCryptoById(id)
             name: allData.name,
             symbol: allData.symbol,
             image: allData.image.large,
+            hashing_algorithm: allData.hashing_algorithm,
+            description: allData.description.en,
+            website: allData.links.homepage[0],
+            explorer: allData.links.blockchain_site[0],
+        };
+        
+        return dispatch({type: "GET_CRYPTO_INFO_BY_ID", payload: data});
+    };
+};
+
+export function getCryptoPricesById(id)
+{
+    return async function(dispatch)
+    {
+        const allData = (await axios(`${API_URL}/${id}`)).data;
+        const data =
+        {
             price_usd: allData.market_data.current_price.usd,
             price_ars: allData.market_data.current_price.ars,
             price_usd_24h: allData.market_data.price_change_24h,
             price_ars_24h: allData.market_data.price_change_24h_in_currency.ars,
             price_percentage_24h: allData.market_data.price_change_percentage_24h,
-            hashing_algorithm: allData.hashing_algorithm,
-            description: allData.description.en,
-            web: allData.links.homepage[0],
         };
         
-        // console.log(data.price_ars);
+        // console.log("Actions price:", data.price_usd);
         
-        return dispatch({type: "GET_CRYPTO_BY_ID", payload: data});
+        return dispatch({type: "GET_CRYPTO_PRICES_BY_ID", payload: data});
     };
 };
 
@@ -83,7 +97,7 @@ export function getFavoriteCryptoByName(searchedCrypto)
     };
 };
 
-export function getMarketChart(id, days)
+export function getMarketChart(id, days=14)
 {
     return async function(dispatch)
     {
