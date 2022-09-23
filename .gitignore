@@ -1,4 +1,4 @@
-node_modules/
+# Default
 .expo/
 dist/
 npm-debug.*
@@ -9,6 +9,17 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-.env
 # macOS
 .DS_Store
+
+# Dependency directories
+node_modules
+
+# package-lock.json
+package-lock.json
+
+# Environment variables
+.env
+
+# Irrelevant info
+.psd
