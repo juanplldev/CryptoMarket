@@ -1,8 +1,8 @@
 // Dependencies
 import React, {useEffect, useState} from "react";
 import {View, FlatList, TouchableOpacity} from "react-native";
-import {useNavigate} from "react-router-native";
 import {useDispatch, useSelector} from "react-redux";
+import {useNavigation} from "@react-navigation/native";
 // Files
 import {getCryptos} from "../../redux/actions/actions";
 import CryptoCard from "../CryptoCard/CryptoCard";
@@ -13,7 +13,7 @@ import styles from "./CryptosStyles";
 function Cryptos()
 {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const navigation = useNavigation();
     
     const cryptos = useSelector(state => state.cryptos);
     const allCryptos = useSelector(state => state.allCryptos);
@@ -41,7 +41,7 @@ function Cryptos()
     
     function handleNavigate(id)
     {
-        navigate(`/crypto/${id}`);
+        return navigation.navigate("Detail", id);
     };
     
     if(allCryptos.length)

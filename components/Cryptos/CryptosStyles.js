@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
     {
         width: "100%",
         height: "100%",
-        paddingBottom: 200, // Temporal
+        backgroundColor: "#171b26",
     },
     List:
     {
-        
+        marginBottom: 135,
     },
     Button:
     {

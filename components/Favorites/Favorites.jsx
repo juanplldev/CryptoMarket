@@ -1,8 +1,9 @@
 // Dependencies
 import React, {useEffect, useState} from "react";
-import {View, Text, FlatList, TouchableOpacity} from "react-native";
-import {useNavigate} from "react-router-native";
+import {View, Text, FlatList, TouchableOpacity, Alert} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 import {useDispatch, useSelector} from "react-redux";
+
 // Files
 import {getCryptos, getFavorites, cleanFavorites} from "../../redux/actions/actions";
 import CryptoCard from "../CryptoCard/CryptoCard";
@@ -12,7 +13,7 @@ import styles from "./FavoritesStyles";
 function Favorites()
 {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const navigation = useNavigation();
     
     const favoritesCryptos = useSelector(state => state.favoritesCryptos);
     
@@ -42,25 +43,35 @@ function Favorites()
     
     function handleNavigate(id)
     {
-        navigate(`/crypto/${id}`);
+        navigation.navigate("Detail", id);
     };
     
     function handleCleanFavorites()
     {
-        dispatch(cleanFavorites());
+        Alert.alert(
+            "Delete favorites list",
+            "Are you sure?",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => null,
+                    style: "cancel",
+                },
+                {
+                    text: "Yes",
+                    onPress: () => dispatch(cleanFavorites()),
+                }
+            ],
+            {
+                cancelable: true,
+            }
+        );
     };
     
     if(favoritesCryptos.length)
     {
         return (
             <View style={styles.Container}>
-                
-                <View style={styles.DeleteButtonContainer}>
-                    <TouchableOpacity style={styles.DeleteButton} onPress={handleCleanFavorites}>
-                        <Text style={styles.ButtonText}>Delete all favorites</Text>
-                    </TouchableOpacity>
-                </View>
-                
                 <FlatList style={styles.List}
                     data={favoritesCryptos}
                     initialNumToRender={100}
@@ -82,15 +93,23 @@ function Favorites()
                     refreshing={refresh}
                     onRefresh={handleRefresh}
                 />
+                
+                <View style={styles.DeleteButtonContainer}>
+                    <TouchableOpacity style={styles.DeleteButton} onPress={handleCleanFavorites}>
+                        <Text style={styles.ButtonText}>Delete favorites list</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
     else
     {
         return (
-            <View style={styles.TextContainer}>
-                {/* <Text style={styles.Text}>In this section you will be able to see the cryptos that you added as favorites.</Text> */}
-                <Text style={styles.Text}>In this section you will be able to see your favorites cryptos.</Text>
+            <View style={styles.Container}>
+                <View style={styles.TextContainer}>
+                    {/* <Text style={styles.Text}>In this section you will be able to see the cryptos that you added as favorites.</Text> */}
+                    <Text style={styles.Text}>In this section you will be able to see your favorites cryptos.</Text>
+                </View>
             </View>
         );
     };

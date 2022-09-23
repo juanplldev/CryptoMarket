@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
         // alignItems: "center",
         width: "100%",
         height: "100%",
+        // backgroundColor: "#171b26",
     },
     Header:
     {
@@ -124,8 +125,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: "100%",
         height: "60%",
-        // backgroundColor: "gray",
-        // opacity: 0.2,
+        backgroundColor: "#1e2633",
+        borderRadius: 15,
     },
     ChartFiltersContainer:
     {
@@ -159,8 +160,13 @@ const styles = StyleSheet.create({
     },
     ChartFilterText:
     {
-        color: "#dadeea",
+        color: "rgba(218, 222, 234, 0.7)",
         fontSize: 15,
+    },
+    ActiveChartFilterText:
+    {
+        color: "white",
+        fontSize: 16,
     },
     PositivePercentage:
     {
@@ -188,9 +194,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#1e2633",
         borderRadius: 15,
     },
-    DecriptionText:
+    DescriptionText:
     {
-        textAlign: "center",
+        textAlign: "left",
         color: "rgba(255, 255, 255, 0.6)",
         fontSize: 15,
     },

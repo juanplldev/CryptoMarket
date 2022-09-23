@@ -1,24 +1,20 @@
 // Dependencies
 import React from "react";
 import {SafeAreaView} from "react-native";
-import {NativeRouter, Route, Routes} from "react-router-native";
+import {NavigationContainer} from "@react-navigation/native";
 // Files
-import Home from "./components/Home/Home";
-import Detail from "./components/Detail/Detail";
+import StackNavigation from "./navigation/StackNavigation";
 import styles from "./AppStyles";
 
 
 function App()
 {
     return (
-        <NativeRouter>
+        <NavigationContainer>
             <SafeAreaView style={styles.Container}>
-                <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/crypto/:id" element={<Detail/>}/>
-                </Routes>
+                <StackNavigation/>
             </SafeAreaView>
-        </NativeRouter>
+        </NavigationContainer>
     );
 };
 

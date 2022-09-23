@@ -8,16 +8,20 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         paddingBottom: 140, // Temporal
+        backgroundColor: "#171b26",
     },
     DeleteButtonContainer:
     {
         display:"flex",
         alignItems: "flex-end",
-        justifyContent: "center",
-        marginBottom: 10,
+        justifyContent: "flex-end",
+        height: 45,
+        marginLeft: 15,
+        marginRight: 15,
     },
     DeleteButton:
     {
+        width: "100%",
         padding: 5,
         borderRadius: 8,
         borderWidth: 2,
@@ -26,10 +30,11 @@ const styles = StyleSheet.create({
     ButtonText:
     {
         color: "#fff",
+        textAlign: "center",
     },
     List:
     {
-        
+        backgroundColor: "#171b26",
     },
     Button:
     {
@@ -41,13 +46,14 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "70%",
+        height: "80%",
     },
     Text:
     {
         width: "80%",
         color: "#fff",
         textAlign: "center",
+        fontSize: 15,
     },
 });
 

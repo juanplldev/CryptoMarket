@@ -9,8 +9,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         padding: 15,
+        marginLeft: 15,
+        marginRight: 15,
         backgroundColor: "#1e2633",
-        // marginBottom: 10,
         borderRadius: 12,
     },
     Icons:

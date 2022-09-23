@@ -8,11 +8,11 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: 35,
+        margin: 5,
     },
     SearchInput:
     {
-        fontSize: 15,
+        fontSize: 16,
         textAlign: "center",
         color: "#fff",
     },

@@ -4,10 +4,8 @@ import {View, Text, StatusBar} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 // Files
 import {getCryptoByName, getFavoriteCryptoByName} from "../../redux/actions/actions";
-import Cryptos from "../Cryptos/Cryptos";
-import Favorites from "../Favorites/Favorites";
 import SearchBar from "../SearchBar/SearchBar";
-import Sections from "../Sections/Sections";
+import TabNavigation from "../../navigation/TabNavigation";
 import styles from "./HomeStyles";
 
 
@@ -18,7 +16,7 @@ function Home()
     const allCryptos = useSelector(state => state.allCryptos);
     const allFavoritesCryptos = useSelector(state => state.allFavoritesCryptos);
     
-    const [section, setSection] = useState("all");
+    const [tab, setTab] = useState("all");
     
     function handleSearchAll(text)
     {
@@ -43,22 +41,16 @@ function Home()
             <View style={styles.Header}>
                 <Text style={styles.Title}>Crypto Market</Text>
                 {
-                    section === "all" ? <SearchBar searchFunction={handleSearchAll}/>
+                    tab === "all" ? <SearchBar searchFunction={handleSearchAll}/>
                     :
                     <SearchBar searchFunction={handleSearchFavorites}/>
                 }
             </View>
             
-            <Sections
-                section={section}
-                setSection={setSection}
+            <TabNavigation
+                tab={tab}
+                setTab={setTab}
             />
-            
-            {
-                section === "all" ? <Cryptos/>
-                :
-                <Favorites/>
-            }
         </View>
     );
 };

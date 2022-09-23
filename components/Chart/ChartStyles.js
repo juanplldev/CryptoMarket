@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "#1e2633",
     },
     Dot:
     {

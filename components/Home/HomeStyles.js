@@ -7,8 +7,6 @@ const styles = StyleSheet.create({
     {
         width: "100%",
         height: "100%",
-        paddingLeft: 15,
-        paddingRight: 15,
     },
     Header:
     {
@@ -20,9 +18,10 @@ const styles = StyleSheet.create({
     },
     Title:
     {
-        fontSize: 28,
+        fontSize: 30,
         color: "#dadeea",
-        margin: 20,
+        marginTop: 25,
+        marginBottom: 15,
     },
 });
 

@@ -1,10 +1,11 @@
 // Dependencies
 import React, {useState, useEffect} from "react";
-import {View, Text, ScrollView, BackHandler, TouchableOpacity, RefreshControl, Image} from "react-native";
-import {Link, useParams, useNavigate} from "react-router-native";
+import {View, Text, ScrollView, TouchableOpacity, RefreshControl, Image, StatusBar} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
-import * as Linking from "expo-linking";
+import {useNavigation, useRoute} from "@react-navigation/native";
 import Icon from "react-native-vector-icons/AntDesign";
+import * as Linking from "expo-linking";
+
 // Files
 import {getCryptoInfoById, getCryptoPricesById, getFavorites, getMarketChart, addFavorite, deleteFavorite, cleanDetailState, cleanChartState} from "../../redux/actions/actions";
 import Chart from "../Chart/Chart";
@@ -14,9 +15,9 @@ import styles from "./DetailStyles";
 
 function Detail()
 {
-    const {id} = useParams();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const id = useRoute().params;
+    const navigation = useNavigation();
     
     const cryptoInfo = useSelector(state => state.cryptoInfo);
     const cryptoPrices = useSelector(state => state.cryptoPrices);
@@ -32,6 +33,8 @@ function Detail()
         dispatch(getCryptoInfoById(id));
         dispatch(getCryptoPricesById(id));
         dispatch(getFavorites());
+        dispatch(cleanDetailState());
+        dispatch(cleanChartState());
     }, []);
     
     useEffect(() => {
@@ -39,13 +42,13 @@ function Detail()
         dispatch(getMarketChart(id, chartFilter));
     }, [chartFilter]);
     
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         dispatch(getCryptoPricesById(id));
-    //     }, 15000);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            dispatch(getCryptoPricesById(id));
+        }, 15000);
         
-    //     return () => clearInterval(interval);
-    // }, []);
+        return () => clearInterval(interval);
+    }, []);
     
     function handlePercentage(percentage)
     {
@@ -71,9 +74,9 @@ function Detail()
     
     function handleNavigate()
     {
-        navigate("/");
         dispatch(cleanDetailState());
         dispatch(cleanChartState());
+        navigation.navigate("Home");
     };
     
     async function handleRefresh()
@@ -110,17 +113,45 @@ function Detail()
         Linking.openURL(`https://www.blockchain.com/explorer/assets/${symbol}`);
     };
     
-    function handleWebLinkFormater(string)
+    function handleWebLinkFormater(link)
     {
-        const newLink = string.replace(/http(s)?(:)?(\/\/)?|(\/\/)?(www\.)?/g, "").replace(/\/$/, "");
+        const splittedLink = link.split(/[?#]/)[0];
+        const formatedLink = splittedLink.replace(/http(s)?(:)?(\/\/)?|(\/\/)?(www\.)?/g, "").replace(/\/$/, "");
         
-        return <Text style={styles.LinkSubText}>{newLink}</Text>;
+        return <Text style={styles.LinkSubText}>{formatedLink}</Text>;
+    };
+    
+    function handleFormatDescriptionLinks(text)
+    {
+        const tagRegExp = /<a [^>]+>(.*?)<\/a>/g;
+        const verifyMatch = tagRegExp.test(text);
+        
+        if(verifyMatch)
+        {
+            const matchedTags = text.match(tagRegExp);
+            const savedStrings = matchedTags.map(() => tagRegExp.exec(text)[1]);
+            const mapObj = {};
+            
+            matchedTags.forEach((e, i) => {
+                mapObj[e] = savedStrings[i];
+            });
+            
+            const formatedText = text.replace(tagRegExp, (matched) => mapObj[matched]);
+            
+            return <Text selectable selectionColor="#dadeff66" style={styles.DescriptionText}>{formatedText}</Text>;
+        }
+        else
+        {
+            return <Text selectable selectionColor="#dadeff66" style={styles.DescriptionText}>{text}</Text>;
+        };
     };
     
     if(Object.keys(cryptoInfo).length && Object.keys(cryptoPrices).length)
     {
         return (
             <View style={styles.Container}>
+                <StatusBar backgroundColor="#1e2633"/>
+                
                 <View style={styles.Header}>
                     <TouchableOpacity onPress={handleNavigate} style={styles.IconContainer}>
                         <Icon style={styles.Icon} name="left" size={30}/>
@@ -179,28 +210,24 @@ function Detail()
                     
                     <View style={styles.ChartFiltersContainer}>
                         <TouchableOpacity onPress={() => setChartFilter(1)} style={chartFilter === 1 ? styles.ActiveChartFilter : styles.ChartFilter}>
-                            <Text style={styles.ChartFilterText}>1D</Text>
+                            <Text style={chartFilter === 1 ? styles.ActiveChartFilterText : styles.ChartFilterText}>1D</Text>
                         </TouchableOpacity>
                         
                         <TouchableOpacity onPress={() => setChartFilter(7)} style={chartFilter === 7 ? styles.ActiveChartFilter : styles.ChartFilter}>
-                            <Text style={styles.ChartFilterText}>1W</Text>
+                            <Text style={chartFilter === 7 ? styles.ActiveChartFilterText : styles.ChartFilterText}>1W</Text>
                         </TouchableOpacity>
                         
                         <TouchableOpacity onPress={() => setChartFilter(14)} style={chartFilter === 14 ? styles.ActiveChartFilter : styles.ChartFilter}>
-                            <Text style={styles.ChartFilterText}>2W</Text>
+                            <Text style={chartFilter === 14 ? styles.ActiveChartFilterText : styles.ChartFilterText}>2W</Text>
                         </TouchableOpacity>
                         
                         <TouchableOpacity onPress={() => setChartFilter(30)} style={chartFilter === 30 ? styles.ActiveChartFilter : styles.ChartFilter}>
-                            <Text style={styles.ChartFilterText}>1M</Text>
+                            <Text style={chartFilter === 30 ? styles.ActiveChartFilterText : styles.ChartFilterText}>1M</Text>
                         </TouchableOpacity>
                         
                         <TouchableOpacity onPress={() => setChartFilter(365)} style={chartFilter === 365 ? styles.ActiveChartFilter : styles.ChartFilter}>
-                            <Text style={styles.ChartFilterText}>1Y</Text>
+                            <Text style={chartFilter === 365 ? styles.ActiveChartFilterText : styles.ChartFilterText}>1Y</Text>
                         </TouchableOpacity>
-                        
-                        {/* <TouchableOpacity onPress={() => setChartFilter("max")} style={chartFilter === "max" ? styles.ActiveChartFilter : styles.ChartFilter}>
-                            <Text style={styles.ChartFilterText}>All</Text>
-                        </TouchableOpacity> */}
                     </View>
                     
                     <Text style={styles.InfoTitle}>Learn more about {cryptoInfo.name}</Text>
@@ -208,15 +235,15 @@ function Detail()
                     {
                         cryptoInfo.description ?
                         <View style={styles.InfoContainer}>
-                            <Text style={styles.DecriptionText}>{cryptoInfo.description}</Text>
+                            {handleFormatDescriptionLinks(cryptoInfo.description)}
                         </View>
                         :
                         null
                     }
                     
                     <View style={styles.LinksContainer}>
-                        <TouchableOpacity onPress={() => {Linking.openURL(cryptoInfo.website)}} style={styles.LinkButton}>
-                            <Image style={styles.LinkImage} source={{uri: "https://www.nicepng.com/png/full/170-1709508_web-solutions-web-icon-white-png.png"}} />
+                        <TouchableOpacity style={styles.LinkButton} onPress={() => {Linking.openURL(cryptoInfo.website)}} >
+                            <Image style={styles.LinkImage} source={{uri: cryptoInfo.image}} />
                             
                             <View style={styles.LinkTexts}>
                                 <Text style={styles.LinkText}>Website</Text>
@@ -224,7 +251,7 @@ function Detail()
                             </View>
                         </TouchableOpacity>
                         
-                        <TouchableOpacity onPress={handleOpenExplorer} style={styles.LinkButton}>
+                        <TouchableOpacity  style={styles.LinkButton} onPress={handleOpenExplorer} >
                             <Image style={styles.LinkImage} source={{uri: "https://exchange.blockchain.com/api/assets/images/logo.png"}} />
                             
                             <View style={styles.LinkTexts}>
@@ -233,7 +260,7 @@ function Detail()
                             </View>
                         </TouchableOpacity>
                         
-                        <TouchableOpacity onPress={handleOpenBinance} style={styles.LinkButton}>
+                        <TouchableOpacity style={styles.LinkButton} onPress={handleOpenBinance} >
                             <Image style={styles.LinkImage} source={{uri: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Binance-coin-bnb-logo.png"}} />
                             
                             <View style={styles.LinkTexts}>
