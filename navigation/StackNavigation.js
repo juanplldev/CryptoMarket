@@ -15,7 +15,7 @@ function StackNavigation()
             screenOptions={{
                 contentStyle: {
                     backgroundColor: "#171b26",
-                }
+                },
             }}
         >
             <Stack.Screen

@@ -7,11 +7,9 @@ const styles = StyleSheet.create({
     {
         height: "100%",
         width: "100%",
-        backgroundColor: "#171b26",
     },
     TabBarStyle:
     {
-        backgroundColor: "#171b26",
         marginLeft: 15,
         marginRight: 15,
         marginBottom: 15,

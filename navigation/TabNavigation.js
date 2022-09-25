@@ -43,7 +43,7 @@ function TabNavigation({tab, setTab})
                         tabBarLabel: "All",
                         tabBarLabelStyle: tab === "all" ? styles.ActiveText : styles.Text,
                         tabBarIndicatorStyle: styles.TabBarIndicator,
-                        tabBarPressColor: "transparent"
+                        tabBarPressColor: "transparent",
                     }}
                 />
                 
