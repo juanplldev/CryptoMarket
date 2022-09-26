@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         // alignItems: "center",
         width: "90%",
-        height: 450,
+        height: 420,
         marginTop: 30,
         backgroundColor: "#1e2633",
         borderRadius: 15,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     PriceArs:
     {
         fontSize: 22,
-        color: "#fff",
+        color: "rgba(255, 255, 255, 0.5)",
     },
     BottomPrices:
     {
@@ -119,10 +119,6 @@ const styles = StyleSheet.create({
     },
     ChartContainer:
     {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
         width: "100%",
         height: "60%",
         backgroundColor: "#1e2633",
@@ -170,12 +166,12 @@ const styles = StyleSheet.create({
     },
     PositivePercentage:
     {
-        fontSize: 20,
+        fontSize: 22,
         color: "#51a239",
     },
     NegativePercentage:
     {
-        fontSize: 20,
+        fontSize: 22,
         color: "#d15150",
     },
     InfoTitle:

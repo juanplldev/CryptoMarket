@@ -64,6 +64,55 @@ function Detail()
         };
     };
     
+    function handleFormatPrice(currency)
+    {
+        if(currency === "USD")
+        {
+            const formatedPrice = new Intl.NumberFormat("en-US", {currency: "USD", minimumFractionDigits: 2}).format(cryptoPrices.price_usd);
+            
+            return formatedPrice;
+        }
+        else
+        {
+            const formatedPrice = new Intl.NumberFormat("es-AR", {currency: "ARS", minimumFractionDigits: 2}).format(cryptoPrices.price_ars);
+            
+            return formatedPrice;
+        };
+    };
+    
+    function handleFormatChartPrice(price)
+    {
+        "worklet";
+        
+        if(price === "")
+        {
+            return "";
+        }
+        else
+        {
+            const formatedPrice = `${parseFloat(price).toFixed(2)} USD`.replace(/\d(?=(\d{3})+\.)/g, "$&,");
+            
+            return formatedPrice;
+        };
+    };
+    
+    function handleFormatChartDate(timestamp)
+    {
+        "worklet";
+        
+        if(timestamp === "")
+        {
+            return "";
+        }
+        else
+        {
+            const date = new Date(Number(timestamp));
+            const formatedDate = `${date.toLocaleDateString("es-US")} - ${date.toLocaleTimeString("es-US", {hour12: false})}`;
+            
+            return formatedDate;
+        };
+    };
+    
     function handlePriceChange(price)
     {
         const shortedPrice = price.toFixed(2);
@@ -188,22 +237,24 @@ function Detail()
                         <View style={styles.PriceContainer}>
                             <View style={styles.TopPrices}>
                                 <View>
-                                    <Text style={styles.PriceUsd}>{cryptoPrices.price_usd} USD</Text>
-                                    <Text style={styles.PriceArs}>{cryptoPrices.price_ars} ARS</Text>
+                                    <Text style={styles.PriceUsd}>{handleFormatPrice("USD")} USD</Text>
+                                    <Text style={styles.PriceArs}>{handleFormatPrice("ARS")} ARS</Text>
                                 </View>
                                 
                                 {handlePercentage(cryptoPrices.price_percentage_24h)}
                             </View>
                             
                             <View style={styles.BottomPrices}>
-                                <Text style={styles.PriceChangeUsd}>{handlePriceChange(cryptoPrices.price_usd_24h)} USD</Text>
-                                <Text style={styles.PriceChangeArs}>{handlePriceChange(cryptoPrices.price_ars_24h)} ARS</Text>
+                                {/* <Text style={styles.PriceChangeUsd}>{handlePriceChange(cryptoPrices.price_usd_24h)} USD</Text> */}
+                                {/* <Text style={styles.PriceChangeArs}>{handlePriceChange(cryptoPrices.price_ars_24h)} ARS</Text> */}
                             </View>
                         </View>
                         
                         <View style={styles.ChartContainer}>
                             <Chart
                                 chartValues={chartValues}
+                                handleFormatChartPrice={handleFormatChartPrice}
+                                handleFormatChartDate={handleFormatChartDate}
                             />
                         </View>
                     </View>

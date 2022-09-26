@@ -1,7 +1,13 @@
 // Dependencies
 import React from "react";
-import {SafeAreaView} from "react-native";
+import {SafeAreaView, Platform} from "react-native";
 import {NavigationContainer, DefaultTheme} from "@react-navigation/native";
+if(Platform.OS === "android")
+{
+    require("intl");
+    require("intl/locale-data/jsonp/en-US");
+    require("intl/locale-data/jsonp/es-AR");
+};
 // Files
 import StackNavigation from "./navigation/StackNavigation";
 import styles from "./AppStyles";

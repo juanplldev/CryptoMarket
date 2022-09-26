@@ -21,6 +21,13 @@ function CryptoCard({id, name, symbol, image, price_usd, price_percentage_24h})
         };
     };
     
+    function handleFormatPrice()
+    {
+        const formatedPrice = new Intl.NumberFormat("en-US", {currency: "USD", minimumFractionDigits: 2}).format(price_usd);
+        
+        return formatedPrice;
+    };
+    
     return (
         <View style={styles.Container}>
             <Image style={styles.Icons} source={{uri: image}}/>
@@ -31,7 +38,7 @@ function CryptoCard({id, name, symbol, image, price_usd, price_percentage_24h})
             </View>
             
             <View style={styles.PricesContainer}>
-                <Text style={styles.PriceUSD}>{price_usd} USD</Text>
+                <Text style={styles.PriceUSD}>{handleFormatPrice()} USD</Text>
                 {handlePercentage(price_percentage_24h)}
             </View>
         </View>

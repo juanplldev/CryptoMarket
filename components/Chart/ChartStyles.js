@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#1e2633",
     },
     Dot:
     {
@@ -16,6 +15,16 @@ const styles = StyleSheet.create({
         width: 12,
         height: 12,
         borderRadius: 100,
+    },
+    PriceLabel:
+    {
+        fontSize: 22,
+        color: "#fff",
+    },
+    DateLabel:
+    {
+        fontSize: 17,
+        color: "rgba(255, 255, 255, 0.5)",
     },
 });
 
