@@ -2,6 +2,7 @@
 import React, {useState} from "react";
 import {View, Text, StatusBar} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
+import {useNavigation} from "@react-navigation/native";
 // Files
 import {getCryptoByName, getFavoriteCryptoByName} from "../../redux/actions/actions";
 import SearchBar from "../SearchBar/SearchBar";
@@ -12,6 +13,7 @@ import styles from "./HomeStyles";
 function Home()
 {
     const dispatch = useDispatch();
+    const navigation = useNavigation();
     
     const allCryptos = useSelector(state => state.allCryptos);
     const allFavoritesCryptos = useSelector(state => state.allFavoritesCryptos);
@@ -34,12 +36,17 @@ function Home()
         dispatch(getFavoriteCryptoByName(searchedCrypto));
     };
     
+    function handleNavigate()
+    {
+        navigation.navigate("About");
+    };
+    
     return (
         <View style={styles.Container}>
             <StatusBar backgroundColor="#171b26"/>
             
             <View style={styles.Header}>
-                <Text style={styles.Title}>Crypto Market</Text>
+                <Text onPress={handleNavigate} style={styles.Title}>Crypto Market</Text>
                 {
                     tab === "all" ? <SearchBar searchFunction={handleSearchAll}/>
                     :

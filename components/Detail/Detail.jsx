@@ -90,7 +90,7 @@ function Detail()
         }
         else
         {
-            const formatedPrice = `${parseFloat(price).toFixed(2)} USD`.replace(/\d(?=(\d{3})+\.)/g, "$&,");
+            const formatedPrice = `${parseFloat(price).toFixed(5)} USD`.replace(/\d(?=(\d{3})+\.)/g, "$&,");
             
             return formatedPrice;
         };

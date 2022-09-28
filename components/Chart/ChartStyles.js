@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     PriceLabel:
     {
         fontSize: 22,
-        color: "#fff",
+        color: "#d5dcf3",
     },
     DateLabel:
     {
