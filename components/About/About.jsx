@@ -1,6 +1,6 @@
 // Dependencies
 import React from "react";
-import {View, Text, TouchableOpacity, Image, ScrollView} from "react-native";
+import {View, Text, TouchableOpacity, Image, ScrollView, StatusBar} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import Icon from "react-native-vector-icons/AntDesign";
 import * as Linking from "expo-linking";
@@ -64,6 +64,8 @@ function About()
     
     return (
         <View>
+            <StatusBar backgroundColor="#1e2633"/>
+            
             <View style={styles.Header}>
                 <TouchableOpacity onPress={handleNavigate} style={styles.IconContainer}>
                     <Icon style={styles.Icon} name="left" size={30}/>
@@ -87,7 +89,7 @@ function About()
                 </View>
                 
                 <View style={styles.TextContainer}>
-                    <Text style={styles.Text} selectable>
+                    <Text textBreakStrategy="simple" style={styles.Text} selectable>
                         Hey! You found the easter egg!
                         {"\n"}
                         Bah, "easter egg", you know.
@@ -101,7 +103,9 @@ function About()
                         So, Crypto Market was born to introduce me and practice about mobile apps, in this case, with React Native and Expo.
                         {"\n"}
                         {"\n"}
-                        All data is provided from the <Text style={{fontWeight: "bold"}} onPress={() => handleOpenLink("API")}>CoinGecko API</Text> on their free plan.
+                        All data is provided from the <Text style={{fontWeight: "bold"}} onPress={() => handleOpenLink("API")}>CoinGecko API</Text> on their free plan and it may not be accurate.
+                        {"\n"}
+                        The free plan has a rate limit of 50 calls per minute. So, if it's not loading the data, just wait a minute and try again.
                     </Text>
                 </View>
                 
@@ -160,8 +164,9 @@ function About()
                 </View>
                 
                 <View style={styles.CopyrightContainer}>
-                    <Icon style={styles.CopyrightIcon} name="copyright" size={15}/>
-                    <Text style={styles.CopyrightText}>2022. All rights reserved.</Text>
+                    <Text style={styles.CopyrightText}>
+                        <Icon style={styles.CopyrightIcon} name="copyright" size={15}/> 2022. All rights reserved.
+                    </Text>
                 </View>
             </ScrollView>
         </View>

@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         width: "90%",
-        height: 350,
+        height: 430,
         marginTop: 10,
         borderRadius: 12,
     },
@@ -158,12 +158,7 @@ const styles = StyleSheet.create({
     },
     CopyrightContainer:
     {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
         marginBottom: 95,
-        width: 168,
     },
     CopyrightIcon:
     {

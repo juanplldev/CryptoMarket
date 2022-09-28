@@ -21,8 +21,6 @@ export function getCryptos()
             };
         });
         
-        console.log("get cryptos");
-        
         return dispatch({type: "GET_CRYPTOS", payload: data});
     };
 };
@@ -62,8 +60,6 @@ export function getCryptoPricesById(id)
             price_percentage_24h: allData.market_data.price_change_percentage_24h,
         };
         
-        // console.log("Actions price:", data.price_usd);
-        
         return dispatch({type: "GET_CRYPTO_PRICES_BY_ID", payload: data});
     };
 };
@@ -83,8 +79,6 @@ export function getFavorites()
         const favorites = await AsyncStorage.getItem("Favorites");
         const data = JSON.parse(favorites) || [];
         
-        console.log("get favorites cryptos");
-        
         return dispatch({type: "GET_FAVORITES", payload: data});
     };
 };
@@ -103,7 +97,7 @@ export function getMarketChart(id, days=14)
     {
         const allData = (await axios(`${API_URL}/${id}/market_chart?vs_currency=usd&days=${days}`)).data;
         const data = allData.prices;
-        // console.log(data, "action");
+        
         return dispatch({type: "GET_MARKET_CHART", payload: data});
     };
 };
