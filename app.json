@@ -1,7 +1,9 @@
 {
   "expo": {
-    "name": "CryptoPrices",
-    "slug": "CryptoPrices",
+    "name": "Crypto Market",
+    "description": "An app to stay up to date with the crypto market, through the CoinGecko API.",
+    "slug": "CryptoMarket",
+    "sdkVersion": "42.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +23,7 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#003d69"
-      },
+      "icon": "./assets/icon.png",
       "package": "com.juanpll.CryptoPrices"
     },
     "web": {
