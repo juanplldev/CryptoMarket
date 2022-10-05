@@ -9,7 +9,7 @@ export function getCryptos()
 {
     return async function(dispatch)
     {
-        const allData = (await axios(`${API_URL}/markets?vs_currency=usd`)).data;
+        const allData = (await axios(`${API_URL}/markets?vs_currency=usd&per_page=250`)).data;
         const data = allData.map(e => {
             return {
                 id: e.id,
