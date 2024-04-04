@@ -49,7 +49,7 @@ function About()
                 return Linking.openURL("https://redux.js.org");
             
             case "GitHub":
-                return Linking.openURL("https://github.com/JuanPablo-Llorente");
+                return Linking.openURL("https://github.com/juanplldev");
             
             case "LinkedIn":
                 return Linking.openURL("https://www.linkedin.com/in/juanpll");
