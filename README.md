@@ -1,12 +1,57 @@
 # Crypto Market
 
-## Run local
+This is an app to stay up to date with the crypto market, through the CoinGecko API.
 
-```
-npm install -g expo-cli
-npm install
-npm start
-```
-## Or
+## Features
 
-### [Download for Android](https://getcryptomarket.vercel.app)
+- See real time prices
+- Interactive charts.
+- Coin information
+- Favorites section
+
+## Main Technologies
+
+- [React Native](https://reactnative.dev/)
+- [Expo](https://expo.dev/)
+- [Redux](https://redux.js.org/)
+
+## Getting Started
+
+### Environment Variables
+Add the following environment variable to your .env file.
+
+`API_URL`:https://api.coingecko.com/api/v3/coins
+
+## Run Local
+
+Clone the project
+
+```bash
+  git clone https://github.com/juanplldev/CryptoMarket.git
+```
+
+Go to the project directory
+
+```bash
+  cd CryptoMarket
+```
+
+```bash
+  npm install -g expo-cli
+```
+
+```bash
+  npm install
+```
+
+```bash
+  npm start
+```
+
+## Download app for Android
+
+https://getcryptomarket.vercel.app
+
+## Contact
+
+If you have any feedback, please contact me at juanpablollorentej@gmail.com.
