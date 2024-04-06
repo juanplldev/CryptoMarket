@@ -5,7 +5,7 @@ This is an app to stay up to date with the crypto market, through the CoinGecko 
 ## Features
 
 - See real time prices
-- Interactive charts.
+- Interactive charts
 - Coin information
 - Favorites section
 
@@ -20,7 +20,7 @@ This is an app to stay up to date with the crypto market, through the CoinGecko 
 ### Environment Variables
 Add the following environment variable to your .env file.
 
-`API_URL`:https://api.coingecko.com/api/v3/coins
+`API_URL`: https://api.coingecko.com/api/v3/coins
 
 ## Run Local
 
@@ -36,6 +36,8 @@ Go to the project directory
   cd CryptoMarket
 ```
 
+Install dependencies
+
 ```bash
   npm install -g expo-cli
 ```
@@ -43,6 +45,8 @@ Go to the project directory
 ```bash
   npm install
 ```
+
+Start the server
 
 ```bash
   npm start
